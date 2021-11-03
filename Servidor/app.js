@@ -123,7 +123,7 @@ app.post('/getNivelesMundiales', (req, res) => {
 
 
     db.connect(function(err) {
-        var sql = "SELECT id, string, nombre, creador,(SELECT COUNT(*) FROM megusta WHERE id_nivel = nivel.id) AS numLikes,(SELECT COUNT(*) FROM megusta WHERE id_nivel = nivel.id AND usuario = " + mysql.escape(usuarioActual) +") AS megustaYo,(SELECT COUNT(*) FROM favoritos WHERE id_nivel = nivel.id AND usuario = " + mysql.escape(usuarioActual) +") AS favoritoYo FROM nivel;";
+        var sql = "SELECT id, string, nombre, creador,(SELECT COUNT(*) FROM megusta WHERE id_nivel = nivel.id) AS numLikes,(SELECT COUNT(*) FROM megusta WHERE id_nivel = nivel.id AND usuario = " + mysql.escape(usuarioActual) +") AS megustaYo,(SELECT COUNT(*) FROM favoritos WHERE id_nivel = nivel.id AND usuario = " + mysql.escape(usuarioActual) +") AS favoritoYo FROM nivel LIMIT 50;";
         db.query(sql, function (error,resultado) {
 	    resultado.forEach(function(fila) {
     	        cadena = cadena.concat(fila.id + "," + fila.string + "," + fila.nombre + "," + fila.creador + "," + fila.numLikes + "," + fila.megustaYo + "," + fila.favoritoYo + "-");
